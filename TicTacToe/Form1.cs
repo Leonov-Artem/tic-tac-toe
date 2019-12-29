@@ -38,25 +38,19 @@ namespace TicTacToe
             var pressedButton = sender as Button;
             pressedButton.Enabled = false;
 
-            switch (_currentPlayer)
-            {
-                case PlayerType.User:
-                    pressedButton.Text = USER;
-                    _currentPlayer = PlayerType.Computer;
-                    break;
-                case PlayerType.Computer:
-                    pressedButton.Text = COMPUTER;
-                    _currentPlayer = PlayerType.User;
-                    break;
-            }
-
-            var index = ComputeIndex(pressedButton);
-            _playingField[index.Item1, index.Item2] = pressedButton.Text;
+            ChangeTextOfPressedButton(pressedButton);
+            ChangePlayingField(pressedButton);
         }
 
         private void ButtonStart_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void ChangePlayingField(Button pressedButton)
+        {
+            var index = ComputeIndex(pressedButton);
+            _playingField[index.Item1, index.Item2] = pressedButton.Text;
         }
 
         private Tuple<int, int> ComputeIndex(Button button)
@@ -76,6 +70,21 @@ namespace TicTacToe
                 i = 4;
 
             return new Tuple<int, int>(i, j);
+        }
+
+        private void ChangeTextOfPressedButton(Button pressedButton)
+        {
+            switch (_currentPlayer)
+            {
+                case PlayerType.User:
+                    pressedButton.Text = USER;
+                    _currentPlayer = PlayerType.Computer;
+                    break;
+                case PlayerType.Computer:
+                    pressedButton.Text = COMPUTER;
+                    _currentPlayer = PlayerType.User;
+                    break;
+            }
         }
     }
 }
