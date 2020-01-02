@@ -21,6 +21,7 @@ namespace TicTacToe
         const string USER = "X";
         const string COMPUTER = "O";
         const int FILD_SIZE = 5;
+        const string NOTIFICATION = "Уведомление";
 
         PlayerType _currentPlayer;
         string[,] _playingField;
@@ -91,14 +92,18 @@ namespace TicTacToe
             _playingField[index.Item1, index.Item2] = pressedButton.Text;
         }
 
+        #region VictoryCheck
+
         private void VictoryCheck()
         {
             if (HorizontalVictory())
-                MessageBox.Show("Победа по горизонтали!", "");
+                MessageBox.Show("Победа по горизонтали!", NOTIFICATION);
             else if (VerticalVictory())
-                MessageBox.Show("Победа по вертикали!", "");
+                MessageBox.Show("Победа по вертикали!", NOTIFICATION);
             else if (DiagonalVictory())
-                MessageBox.Show("Победа по диагонали!", "");
+                MessageBox.Show("Победа по диагонали!", NOTIFICATION);
+            else if (AllButtonsInactive())
+                MessageBox.Show("Ничья!", NOTIFICATION);
         }
 
         private bool VerticalVictory()
@@ -162,5 +167,21 @@ namespace TicTacToe
 
             return false;
         }
+
+        private bool AllButtonsInactive()
+        {
+            Control.ControlCollection buttons = groupBox1.Controls;
+
+            foreach(var button in buttons)
+            {
+                var someButton = button as Button;
+                if (someButton.Enabled)
+                    return false;
+            }
+
+            return true;
+        }
+
+        #endregion
     }
 }
