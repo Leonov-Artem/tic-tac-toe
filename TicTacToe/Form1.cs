@@ -68,22 +68,9 @@ namespace TicTacToe
 
         private Tuple<int, int> ComputeIndex(Button button)
         {
+            int i = button.TabIndex / FILD_SIZE;
             int j = (button.TabIndex % FILD_SIZE);
-
-            if (button.TabIndex >= 0 && button.TabIndex <= 4)
-                return new Tuple<int, int>(0, j);
-
-            else if (button.TabIndex >= 5 && button.TabIndex <= 9)
-                return new Tuple<int, int>(1, j);
-
-            else if (button.TabIndex >= 10 && button.TabIndex <= 14)
-                return new Tuple<int, int>(2, j);
-
-            else if (button.TabIndex >= 15 && button.TabIndex <= 19)
-                return new Tuple<int, int>(3, j);
-
-            else
-                return new Tuple<int, int>(4, j);
+            return new Tuple<int, int>(i, j);
         }
 
         private void ChangePlayingField(Button pressedButton)
